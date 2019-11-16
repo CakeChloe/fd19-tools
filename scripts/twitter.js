@@ -225,18 +225,34 @@ var twitter = new function() {
 	};
 
 	this.upload = function() {
-		let img = $("#render-canvas")[0].toDataURL();
+		let img = $("#render-canvas")[0];
 
-		$.ajax({
-		  type: "POST",
-		  url: "upload.php",
-		  data: { 
-		     image: img
-		  },
-	    success: function(data) {
-	      window.location.href = data;
-	    }
-		});
+		try {
+			img = img.toDataURL('image/jpeg', 0.9).split(',')[1];
+		} catch(e) {
+			img = img.toDataURL().split(',')[1];
+		}
+		finally {
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				type: 'post',
+				headers: {
+					Authorization: 'Client-ID bbaed846d9cd236'
+				},
+
+				data: {
+					image: img
+				},
+
+				dataType: 'json',
+				success: function(response) {
+					if(response.success) {
+						window.location = response.data.link;
+					}
+				}
+			});
+		}
+		
 	};
 };
 
