@@ -227,62 +227,48 @@ var twitter = new function() {
 	this.upload = function() {
 		let img = $("#render-canvas")[0];
 
-		try {
-			img = img.toDataURL('image/jpeg', 0.9).split(',')[1];
-		} catch(e) {
-			img = img.toDataURL().split(',')[1];
-		}
-		finally {
-			$.ajax({
-				url: 'https://api.imgur.com/3/image',
-				type: 'post',
-				headers: {
-					Authorization: 'Client-ID bbaed846d9cd236'
-				},
-
-				data: {
-					image: img
-				},
-
-				dataType: 'json',
-				success: function(response) {
-					if(response.success) {
-						window.location = response.data.link;
-					}
-				}
-			});
-		}
+		
 		
 	};
-};
 
-$("body").bind("input", function() {
-	twitter.update();
-});
-
-$("#preset-content").change(function() {
-	let type = $("#preset-content option:selected").val();
-
-	if(type == 1)
-		$("#content").text("REMINDER: A short and informative reminder here.\n\n* To Report an Emergency in #LosSantos: Call or Text 911\n* For Non-Emergency @LSCity Services: Call 311");
-	else if(type == 2)
-		$("#content").text("#Keyword; INC#0000; 0:00AM; 123 N Main Street; #Temple; incident information goes here...");
-});
-
-$("#image").change(function() {
-	previewFile(function(source) {
-		twitter.image = source;
-	
+	$("body").bind("input", function() {
 		twitter.update();
 	});
-});
 
-$("#imgur").click(function() {
-	twitter.upload();
-});
+	$("#preset-content").change(function() {
+		let type = $("#preset-content option:selected").val();
 
-$(".render").click(function() {
-	$(this).fadeOut();
-});
+		if(type == 0)
+			$("#content").text("");
+		else if(type == 1)
+			$("#content").text("REMINDER: A short and informative reminder here.\n\n* To Report an Emergency in #LosSantos: Call or Text 911\n* For Non-Emergency @LSCity Services: Call 311");
+		else if(type == 2)
+			$("#content").text("#Keyword; INC#0000; 0:00AM; 123 N Main Street; #Temple; incident information goes here...");
+
+		setTimeout(function() {
+			twitter.update();
+		}, 200);
+	});
+
+	$("#image").change(function() {
+		previewFile(function(source) {
+			twitter.image = source;
+		
+			twitter.update();
+		});
+	});
+
+	$("#imgur").click(function() {
+		twitter.upload();
+
+		new Imgur($("#render-canvas")[0]).upload(function(data) {
+			window.location = data.link;
+		});
+	});
+
+	$(".render").click(function() {
+		$(this).fadeOut();
+	});
+};
 
 twitter.update();

@@ -62,8 +62,8 @@
 				</div>
 
 				<div class="box" id="canvas-box">
-					<div class="head">Live Preview: <span onclick="twitter.render()">render</span></div>
-					<div class="content" style="display: flex;">
+					<div class="head">Live Preview: <span id="render-button" onclick="twitter.render()">Render</span></div>
+					<div class="content" style="display: flex; border: none">
 						<canvas id="canvas" width="590" height="300" style="margin: auto"></canvas>
 					</div>
 				</div>
@@ -140,6 +140,7 @@
 		</div>
 
 		<script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="scripts/imgur.js"></script>
 		<script type="text/javascript" src="scripts/twitter.js"></script>
 	</body>
 </html>
