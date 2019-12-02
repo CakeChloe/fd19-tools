@@ -5,25 +5,24 @@ var Imgur = function(canvas) {
 		} catch(e) {
 			canvas = canvas.toDataURL().split(',')[1];
 		}
-		finally {
-			$.ajax({
-				url: "https://api.imgur.com/3/image",
-				type: "post",
-				headers: {
-					Authorization: "Client-ID bbaed846d9cd236"
-				},
 
-				data: {
-					image: canvas
-				},
+		$.ajax({
+			url: "https://api.imgur.com/3/image",
+			type: "post",
+			headers: {
+				Authorization: "Client-ID bbaed846d9cd236"
+			},
 
-				dataType: "json",
-				success: function(response) {
-					if(response.success) {
-						finish(response.data);
-					}
+			data: {
+				image: canvas
+			},
+
+			dataType: "json",
+			success: function(response) {
+				if(response.success) {
+					finish(response.data);
 				}
-			});
-		}
+			}
+		});
 	};
 };

@@ -84,7 +84,7 @@ var instagram = new function() {
 			// profile name
 			let profileName = $("#account-name").val();
 
-			instagram.context.font = "500 14px Segoe UI";
+			instagram.context.font = "600 14px Segoe UI";
 			instagram.context.fillStyle = "#000";
 			instagram.context.fillText(profileName, currentWidth, 42);
 			currentWidth += instagram.context.measureText(profileName).width;
@@ -179,18 +179,26 @@ var instagram = new function() {
 				let story = $(this).find("#story").val();
 
 				let image = new Image();
-				image.src = "images/avatars/" + cmtPicture + ".png";
+				image.src = $(this).find("#profile-picture").val();
 				image.onload = function() {
 					const oc = document.createElement('canvas');
 				  const octx = oc.getContext('2d');
 				  oc.width = this.width;
 				  oc.height = this.height;
 
-				  const steps = (oc.width / 32)>>1;
+				  const steps = (oc.width / 36)>>1;
 				  octx.filter = `blur(${steps}px)`;
 				  octx.drawImage(this, 0, 0);
 
-					instagram.context.drawImage(oc, 511, pictureHeight, 32, 32);
+				  instagram.context.save();
+
+				  instagram.context.beginPath();
+				  instagram.context.arc(511 + 16, pictureHeight + 5, 28, 0, Math.PI * 2, true);
+					instagram.context.clip();
+
+					instagram.context.drawImage(oc, 511 - 2, pictureHeight - 2, 36, 36);
+
+				  instagram.context.restore();
 
 					oc.remove();
 
@@ -329,12 +337,13 @@ var instagram = new function() {
 '</ul>' +
 '</fieldset>' +
 '<input id="author" type="text" placeholder="losangelesfiredepartment" value="lossantosfiredepartment" data-id="' + id + '">' +
-'<fieldset>Profile Picture:</fieldset>' +
-'<select id="profile-picture">' +
-'<option value="1">LAFDtalk</option>' +
-'<option value="0">LAFD</option>' +
-'<option value="2">DTLS</option>' +
-'</select>' +
+'<fieldset>Profile Picture:' +
+'<ul>' +
+'<li>Presets:</li> ' +
+'<li onclick="$(\'#profile-picture[data-id=' + id + ']\').val(\'https://i.imgur.com/adBpbwH.png\'); instagram.update()">LAFD talk</li>' +
+'</ul>' +
+'</fieldset>' +
+'<input id="profile-picture" type="text" placeholder="Image link" value="https://i.imgur.com/adBpbwH.png" data-id="' + id + '">' +
 '<fieldset>' +
 'Time Elapsed:' +
 '<ul>' +
@@ -381,7 +390,7 @@ var instagram = new function() {
 		});
 	});
 
-	$("#upload-render").click(function() {
+	$("#render-button").click(function() {
 		new Imgur($("#canvas")[0]).upload(function(data) {
 			window.location = data.link;
 		});
