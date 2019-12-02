@@ -8,89 +8,123 @@ body {
 
 .header {
 	width: 100%;
-	height: 72px;
+	height: 125px;
 
-	background: #671e1e;
-
-	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, .75);
-
-	z-index: 2;
+	background: #B20017;
 
 	display: flex;
 
 	position: absolute;
 }
 
-.header > .content {
-	width: 95%;
+.header > .erd {
+	margin: auto;
 
-	margin: 0 auto;
+	width: 541px;
+	height: 69px;
 
-	display: flex;
+	background: url(../images/erd.png);
 }
 
-.header > .content > .logo {
-	width: 60px;
-	height: 60px;
+.header > .logo {
+	width: 110px;
+	height: 110px;
 
-	margin: auto 0;
+	top: 100px;
 
 	background: url(../images/logo.png);
-	background-size: 60px;
+	background-size: 110px 110px;
 
-	display: inline-block;
-}
+	position: absolute;
 
-.header > .content > .slogan {
-	margin: auto 0 auto 24px;
+	left: calc(50% - 55px);
 
-	font-size: 28px;
+	z-index: 2;
 }
 
 .sidebar {
 	position: absolute;
 
-	top: 72px;
+	top: 125px;
 
-	width: 200px;
+	width: 100%;
 
-	background: #862929;
+	background: #353333;
 
-	height: calc(100% - 72px);
+	height: 60px;
 
 	z-index: 1;
+
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
 }
 
-.sidebar > ul > li {
-	list-style: none;
+.sidebar > ul.left {
+	position: absolute;
+	right: calc(50% + 65px);
+}
 
-	width: calc(100% - 12px);
+.sidebar > ul.right {
+	position: absolute;
+	left: calc(50% + 65px);
+}
+
+.sidebar > ul.left li {
+	float: right;
+}
+
+.sidebar > ul > a > li {
+	display: inline-block;
+
+	list-style: none;
 
 	cursor: pointer;
 
-	padding: 18px 0 18px 12px;
+	box-sizing: border-box;
+
+	color: #ffffff;
+	line-height: 42px;
+	padding: 9px 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 13px;
+	font-family: 'Montserrat',sans-serif;
+	font-weight: 500;
+	font-style: normal;
+
+	margin: 0 3px;
+}
+
+.sidebar > ul > a {
+	color: inherit;
+
+	text-decoration: inherit;
 }
 
 .sidebar > ul {
 	padding: 0;
+
+	margin: 0;
+
+	width: calc(50% - 65px);
 }
 
-.sidebar > ul > li.selected {
-	background: #671e1e;
+.sidebar > ul > a > li.selected,
+.sidebar > ul > a > li:hover {
+	background: #FFF;
 
-	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, .75);
+	color: #B20017;
 
-	width: calc(100% - 6px);
+	transition: 1s ease all;
 }
 
 .container {
 	position: absolute;
 
-	left: 200px;
-	top: 72px;
+	left: 5%;
+	top: 190px;
 
-	width: calc(100% - 200px);
-	height: calc(100% - 72px);
+	width: 90%;
 
 	background: #FFF;
 
@@ -119,9 +153,6 @@ body {
 	border: 2px solid #F4F4F4;
 	border-bottom: 1px solid #E6E6E6;
 
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-
 	color: #242736;
 
 	font-weight: bold;
@@ -136,24 +167,21 @@ body {
 
 	border: 2px solid #F4F4F4;
 	border-top: none;
-
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
 }
 
-.container > .box > .content > form {
+.box > .content form {
 	display: grid;
 	grid-template-columns: 50% 50%;
 	grid-row-gap: 12px;
 }
 
-.container > .box > .content > form > fieldset {
+.box > .content form > fieldset {
 	border: none;
 
 	position: relative;
 }
 
-.container > .box > .content > form > fieldset > ul {
+.box > .content form > fieldset > ul {
 	float: right;
 
 	padding: 0;
@@ -162,7 +190,7 @@ body {
 	font-size: 14px;
 }
 
-.container > .box > .content > form > fieldset > ul > li {
+.box > .content form > fieldset > ul > li {
 	display: inline-block;
 
 	cursor: pointer;
@@ -172,7 +200,7 @@ body {
 	border-bottom: 1px solid transparent;
 }
 
-.container > .box > .content > form > fieldset > ul > li:not(:first-child):hover {
+.box > .content form > fieldset > ul > li:not(:first-child):hover {
 	transition: .5s ease;
 
 	color: #671e1e;
@@ -180,20 +208,40 @@ body {
 	border-bottom: 1px dotted #671e1e;
 }
 
-.container > .box > .content > form > fieldset > ul > li:first-child {
-	color: #862929;
+.box > .content form > fieldset > ul > li:first-child {
+	color: #B20017;
 	font-style: italic;
 
 	cursor: default;
 }
 
-.container > .box > .content > form > input[type=text],
-.container > .box > .content > form > input[type=number],
-.container > .box > .content > form > input[type=file],
-.container > .box > .content > form > select,
-.container > .box > .content > form > textarea,
-.container > .box > .content > form > div > input[type=number],
-.container > .box > .content > form > div > select {
+.box > .content > input[type=submit] {
+	background: #FFF;
+	width: 100%;
+
+	cursor: pointer;
+}
+
+.box > .content > input[type=submit]:hover {
+	opacity: .75;
+}
+
+.box > .content > input[type=submit]:active {
+	opacity: .5;
+
+	cursor: default;
+
+	outline-color: #B20017;
+}
+
+.box > .content input[type=submit],
+.box > .content  input[type=text],
+.box > .content  input[type=number],
+.box > .content  input[type=file],
+.box > .content  select,
+.box > .content  textarea,
+.box > .content  div > input[type=number],
+.box > .content  div > select {
 	border: 1px solid #E5E6E8;
 	border-radius: 3px;
 
@@ -201,13 +249,13 @@ body {
 
 	box-sizing: border-box;
 }
-.container > .box > .content > form > div {
+.box > .content form > div {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap: 6px;
 }
 
-.container > .box > .content > form > textarea {
+.box > .content form > textarea {
 	padding: 6px 12px;
 
 	font-family: Arial;
@@ -215,12 +263,12 @@ body {
 	resize: none;
 }
 
-.container > .box > .content > form *:active,
-.container > .box > .content > form *:focus {
+.box > .content > form *:active,
+.box > .content > form *:focus {
 	outline: none;
 }
 
-.container > .box > .content > canvas {
+.box > .content > canvas {
 	border: 1px solid #E5E6E8;
 }
 
@@ -253,7 +301,7 @@ body {
 #render-button {
 	float: right;
 	font-style: italic;
-	color: #862929;
+	color: #B20017;
 	font-weight: normal;
 
 	cursor: pointer;
@@ -262,7 +310,7 @@ body {
 }
 
 #render-button:hover {
-	border-bottom: 1px dotted #862929;
+	border-bottom: 1px dotted #B20017;
 }
 
 #render-canvas {
@@ -285,9 +333,21 @@ body {
 .render #imgur:hover {
 	transition: .5s ease;
 
-	color: #862929;
+	color: #B20017;
 
-	border-bottom: 1px dotted #862929;
+	border-bottom: 1px dotted #B20017;
 
 	cursor: pointer;
+}
+
+h2 {
+	font-family: 'Roboto Slab',serif;
+	font-weight: 300;
+	font-style: normal;
+	font-size: 30px;
+	color: #c41b1b;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-bottom: 40px;
+	margin-top: 40px;
 }

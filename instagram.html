@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LSFD: AD-ERD</title>
+
+		<link rel="stylesheet" type="text/css" href="styles/global.css">
+	</head>
+	<body>
+		<div class="header">
+			<div class="erd"></div>
+			<div class="logo"></div>
+		</div>
+
+		<div class="sidebar">
+			<ul class="left">
+				<a href="#dashboard"><li>Dashboard</li></a>
+			</ul>
+			<ul class="right">
+				<a href="twitter.html"><li>Twitter</li></a>
+				<a href="#"><li class="selected">Instagram</li></a>
+			</ul>
+		</div>
+
+		<div class="container">
+			<div class="box" style="position: relative;">
+				<div class="head">Posting Account</div>
+				<div class="content">
+					<form>
+						<fieldset>
+							Account Name:
+							<ul>
+								<li>Presets:</li>
+								<li onclick="$('#account-name').val('losantosfiredepartment'); instagram.update()">losangelesfiredepartment</li>
+							</ul>
+						</fieldset>
+						<input id="account-name" type="text" placeholder="losantosfiredepartment" value="losantosfiredepartment">
+
+						<fieldset>Profile Picture:</fieldset>
+						<select id="profile-picture">
+							<option value="1">LAFDtalk</option>
+							<option value="0">LAFD</option>
+							<option value="2">DTLS</option>
+						</select>
+
+						<fieldset>Verified:</fieldset>
+						<select id="verified">
+							<option value="0">Yes</option>
+							<option value="1">No</option>
+						</select>
+
+						<fieldset>Has Story?:</fieldset>
+						<select id="story">
+							<option value="0">Yes</option>
+							<option value="1">No</option>
+						</select>
+					</form>
+				</div>
+
+				<div class="box" id="canvas-box">
+					<div class="head">Live Preview: <span id="upload">Render</span></div>
+					<div class="content" style="display: flex; border: none">
+						<canvas id="canvas" width="830" height="600" style="margin: auto; border: none"></canvas>
+					</div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="head">Post</div>
+				<div class="content">
+					<form>
+						<fieldset>
+							Date:
+							<ul>
+								<li>Presets:</li>
+								<li onclick="let date = new Date(); $('#date-month').val(date.getMonth()); $('#date-day').val(date.getDate()); instagram.update()">Today</li>
+							</ul>
+						</fieldset>
+						<div>
+							<select id="date-month">
+								<option value="0">January</option>
+								<option value="1">February</option>
+								<option value="2">March</option>
+								<option value="3">April</option>
+								<option value="4">May</option>
+								<option value="5">June</option>
+								<option value="6">July</option>
+								<option value="7">August</option>
+								<option value="8">September</option>
+								<option value="9">October</option>
+								<option value="10">November</option>
+								<option value="11">December</option>
+							</select>
+
+							<input id="date-day" type="number" placeholder="Day" min="1" max="31" value="1">
+						</div>
+
+						<fieldset>Likes:</fieldset>
+						
+						<input id="likes" type="number" placeholder="Likes" min="0" max="10000" value="0">
+
+						<fieldset>Image:</fieldset>
+    				<input id="image" type="file">
+					</form>
+				</div>
+
+				<div class="box" style="margin-top: 16px">
+					<div class="head">Comments</div>
+					<div class="content">
+						<div id="comments">
+						</div>
+
+						<input id="add-comment" type="submit" value="Add Comment" style="margin-top: 6px">
+					</div>
+				</div>
+			</div>
+
+			<div class="render">
+				<div>
+					<canvas id="render-canvas" width="830" height="600" style="border: none"></canvas>
+
+					<div id="imgur">Upload to Imgur</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="scripts/imgur.js"></script>
+		<script type="text/javascript" src="scripts/instagram.js"></script>
+	</body>
+</html>
