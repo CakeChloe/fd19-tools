@@ -150,7 +150,7 @@ var twitter = new function() {
 		twitter.context.fillStyle = "#14171a";
 
 		for(let character = 0; character < content.length; character++) {
-			if(content[character] == '#' || content[character] == '@') {
+			if((content[character] == '#' || content[character] == '@') && content[character + 1].match(/[a-z]/i)) {
 				hashTag = 1;
 
 				twitter.context.fillStyle = $("#profile-color").val();
