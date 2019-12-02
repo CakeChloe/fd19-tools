@@ -381,7 +381,7 @@ var instagram = new function() {
 		});
 	});
 
-	$("#upload").click(function() {
+	$("#upload-render").click(function() {
 		new Imgur($("#canvas")[0]).upload(function(data) {
 			window.location = data.link;
 		});
