@@ -145,14 +145,46 @@ var twitter = new function() {
 
 		let currentHeight = 43;
 
-		var lines = content.split('\n');
+		let textBreadth = 0, hashTag = 0;
+
+		twitter.context.fillStyle = "#14171a";
+
+		for(let character = 0; character < content.length; character++) {
+			if(content[character] == '#' || content[character] == '@') {
+				hashTag = 1;
+
+				twitter.context.fillStyle = $("#profile-color").val();
+			}
+			else if(hashTag == 1 && !content[character].match(/[a-z]/i)) {
+				hashTag = 0;
+
+				twitter.context.fillStyle = "#14171a";
+			}
+
+			if(textBreadth >= 500 || content[character] == '\n') {
+				textBreadth = 0;
+
+				currentHeight += 20;
+
+				if(content[character] == '\n')
+					continue;
+			}
+
+			twitter.context.fillText(content[character], currentWidth + textBreadth, currentHeight);
+
+			textBreadth += twitter.context.measureText(content[character]).width;
+		}
+
+		currentHeight += 20;
+
+		/*var lines = content.split('\n');
 		for(let index = 0; index < lines.length; index++) {
 			currentHeight += 20;
 			currentWidth = 12 + 48 + 12;
 
 			twitter.context.fillStyle = "#14171a";
 			twitter.context.fillText(lines[index], currentWidth, 43 + (index * 20));
-		}
+		}*/
 
 
 		//image

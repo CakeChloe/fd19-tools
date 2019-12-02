@@ -58,6 +58,17 @@
 							<option value="0">Yes</option>
 							<option value="1">No</option>
 						</select>
+
+						<fieldset>
+							Twitter Verified Special Color:
+							<ul>
+								<li>Presets:</li>
+								<li onclick="$('#profile-color').val('#1B95E0'); twitter.update()">Default</li>,
+								<li onclick="$('#profile-color').val('#A10817'); twitter.update()">LAFD</li>
+								<li onclick="$('#profile-color').val('#0A07A2'); twitter.update()">LAFD Talk</li>
+							</ul>
+						</fieldset>
+						<input id="profile-color" type="text" placeholder="Color code" value="#1B95E0">
 					</form>
 				</div>
 
