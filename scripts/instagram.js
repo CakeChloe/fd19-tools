@@ -405,6 +405,12 @@ var instagram = new function() {
 					"width": $("#canvas-imager img")[0].width + "px",
 					"height": $("#canvas-imager img")[0].height + "px"
 				});
+				
+
+				$("#canvas-imager img").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				});
 
 				$("#imager").css({
 					"width": $("#canvas-imager img")[0].width + "px",
