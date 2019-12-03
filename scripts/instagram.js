@@ -34,274 +34,278 @@ var instagram = new function() {
 	this.context.font = "14px Segoe UI";
 
 	this.update = function() {
-		instagram.context.clearRect(0, 0, 1000, 1000);
+		return new Promise(resolve => {
+			instagram.context.clearRect(0, 0, 1000, 1000);
 
-		instagram.context.fillStyle = "black";
-		instagram.context.fillRect(0, 0, 1000, 1000);
+			instagram.context.fillStyle = "black";
+			instagram.context.fillRect(0, 0, 1000, 1000);
 
-		let img = new Image();
-		img.onload = function() {
-			instagram.context.drawImage(img, instagram.imageLeft, instagram.imageTop, $("#imager img").width(), $("#imager img").height());
+			let img = new Image();
+			img.onload = function() {
+				instagram.context.drawImage(img, instagram.imageLeft, instagram.imageTop, $("#imager img").width(), $("#imager img").height());
 
-		};
-		img.src = $("#imager img")[0].src;
-
-		let instagramImage = new Image();
-		instagramImage.src = "images/instagram.png";
-		instagramImage.onload = function() {
-			instagram.context.drawImage(instagramImage, 0, 0);
-
-			// profile picture
-			let picture = $("#profile-picture").val();
-
-			if(picture == 0) // @lafd
-				picture = "lsfd";
-			else if(picture == 1)
-				picture = "lsfdtalk";
-			else
-				picture = "dtls";
-
-			let image = new Image();
-			image.src = "images/avatars/" + picture + ".png";
-			image.onload = function() {
-				const oc = document.createElement('canvas');
-			  const octx = oc.getContext('2d');
-			  oc.width = this.width;
-			  oc.height = this.height;
-
-			  const steps = (oc.width / 32)>>1;
-			  octx.filter = `blur(${steps}px)`;
-			  octx.drawImage(this, 0, 0);
-
-				instagram.context.drawImage(oc, 511, 21, 32, 32);
-
-				oc.remove();
-
-				let story = $("#story").val();
-
-				if(story == 0) {
-					let storyImage = new Image();
-					storyImage.src = "images/story.png";
-					storyImage.onload = function() {
-						instagram.context.drawImage(storyImage, 511 - 4, 17);
-					};
-				}
 			};
+			img.src = $("#imager img")[0].src;
 
-			// general texts
-			let currentWidth = 559;
+			let instagramImage = new Image();
+			instagramImage.src = "images/instagram.png";
+			instagramImage.onload = function() {
+				instagram.context.drawImage(instagramImage, 0, 0);
 
-			// profile name
-			let profileName = $("#account-name").val();
+				// profile picture
+				let picture = $("#profile-picture").val();
 
-			instagram.context.font = "600 14px Segoe UI";
-			instagram.context.fillStyle = "#000";
-			instagram.context.fillText(profileName, currentWidth, 42);
-			currentWidth += instagram.context.measureText(profileName).width;
-
-			// verified
-			let verified = $("#verified").val();
-
-			if(verified == 0) {
-				currentWidth += 5;
-
-				let breadth = currentWidth;
-
-				let verifiedImage = new Image();
-				verifiedImage.src = "images/verified-ig.png";
-				verifiedImage.onload = function() {
-					instagram.context.drawImage(verifiedImage, breadth, 32);
-				};
-
-				currentWidth += 12;
-			}
-
-			currentWidth += 4;
-
-			// lmao this dot
-
-			let dotBreadth = currentWidth;
-
-			let dotImage = new Image();
-			dotImage.src = "images/loldot.png";
-			dotImage.onload = function() {
-				instagram.context.drawImage(dotImage, dotBreadth, 37);
-			};
-
-			currentWidth += 6;
-
-			instagram.context.font = "semibold 14px Segoe UI";
-			instagram.context.fillStyle = "#3897f0";
-			instagram.context.fillText("Follow", currentWidth, 42);
-			currentWidth += instagram.context.measureText(profileName).width;
-
-			// date
-			let likes = $("#likes").val();
-
-			instagram.context.font = "semibold 14px Segoe UI";
-			instagram.context.fillStyle = "#262626";
-			instagram.context.fillText(likes + " likes", 512, 508);
-
-			let dateMonth = $("#date-month option:selected").text().toUpperCase() + " " + $("#date-day").val();
-
-			instagram.context.font = "10px Segoe UI";
-			instagram.context.fillStyle = "#999";
-			instagram.context.fillText(dateMonth, 512, 530);
-
-			//image
-			/*if(instagram.image != undefined) {
-				let customImage = new Image();
-				customImage.src = instagram.image;
-				customImage.onload = function() {
-					const oc = document.createElement('canvas');
-				  const octx = oc.getContext('2d');
-				  oc.width = this.width;
-				  oc.height = this.height;
-
-				  const steps = (oc.height / 598)>>1;
-				  octx.filter = `blur(${steps}px)`;
-				  octx.drawImage(this, 0, 0);
-
-					instagram.context.drawImage(oc, (this.width - 492) / 2, (this.height - 598) / 2, 492, 598, 1, 1, 492, 598);
-
-					oc.remove();
-				};
-			}*/
-
-			let commentHeight = 95;
-
-			// comments
-			$("#comments").children("#comment").each(function () {
-				let commentBreadth = 511;
-
-				let cmtPicture = $(this).find("#profile-picture").val();
-
-				if(cmtPicture == 0) // @lafd
-					cmtPicture = "lsfd";
-				else if(cmtPicture == 1)
-					cmtPicture = "lsfdtalk";
+				if(picture == 0) // @lafd
+					picture = "lsfd";
+				else if(picture == 1)
+					picture = "lsfdtalk";
 				else
-					cmtPicture = "dtls";
-
-				let pictureHeight = commentHeight;
-
-
-				let story = $(this).find("#story").val();
+					picture = "dtls";
 
 				let image = new Image();
-				image.src = $(this).find("#profile-picture").val();
+				image.src = "images/avatars/" + picture + ".png";
 				image.onload = function() {
 					const oc = document.createElement('canvas');
 				  const octx = oc.getContext('2d');
 				  oc.width = this.width;
 				  oc.height = this.height;
 
-				  const steps = (oc.width / 36)>>1;
+				  const steps = (oc.width / 32)>>1;
 				  octx.filter = `blur(${steps}px)`;
 				  octx.drawImage(this, 0, 0);
 
-				  instagram.context.save();
-
-				  instagram.context.beginPath();
-				  instagram.context.arc(511 + 16, pictureHeight + 5, 28, 0, Math.PI * 2, true);
-					instagram.context.clip();
-
-					instagram.context.drawImage(oc, 511 - 2, pictureHeight - 2, 36, 36);
-
-				  instagram.context.restore();
+					instagram.context.drawImage(oc, 511, 21, 32, 32);
 
 					oc.remove();
 
-					if(story == 1) {
+					let story = $("#story").val();
+
+					if(story == 0) {
 						let storyImage = new Image();
 						storyImage.src = "images/story.png";
 						storyImage.onload = function() {
-							instagram.context.drawImage(storyImage, 511 - 4, pictureHeight - 4);
+							instagram.context.drawImage(storyImage, 511 - 4, 17);
 						};
 					}
 				};
 
-				commentBreadth += 48;
+				// general texts
+				let currentWidth = 559;
 
-				let profileName = $(this).find("#author").val();
+				// profile name
+				let profileName = $("#account-name").val();
 
 				instagram.context.font = "600 14px Segoe UI";
-				instagram.context.fillStyle = "#262626";
-				instagram.context.fillText(profileName, commentBreadth, commentHeight + 16);
-				commentBreadth += instagram.context.measureText(profileName).width;
+				instagram.context.fillStyle = "#000";
+				instagram.context.fillText(profileName, currentWidth, 42);
+				currentWidth += instagram.context.measureText(profileName).width;
 
-				let verified = $(this).find("#verified").val();
+				// verified
+				let verified = $("#verified").val();
 
-				if(verified == 1) {
-					commentBreadth += 5;
+				if(verified == 0) {
+					currentWidth += 5;
 
-					let commentHeightVer = commentHeight;
-
-					let breadth = commentBreadth;
+					let breadth = currentWidth;
 
 					let verifiedImage = new Image();
 					verifiedImage.src = "images/verified-ig.png";
 					verifiedImage.onload = function() {
-						instagram.context.drawImage(verifiedImage, breadth, commentHeightVer + 6);
+						instagram.context.drawImage(verifiedImage, breadth, 32);
 					};
 
-					commentBreadth += 12;
+					currentWidth += 12;
 				}
 
-				commentBreadth += 4;
+				currentWidth += 4;
 
-				let hashTag = 0, content = $(this).find("#content").val();
+				// lmao this dot
 
-				instagram.context.font = "14px Segoe UI";
-				instagram.context.fillStyle = "#14171a";
+				let dotBreadth = currentWidth;
 
-				commentHeight += 16;
+				let dotImage = new Image();
+				dotImage.src = "images/loldot.png";
+				dotImage.onload = function() {
+					instagram.context.drawImage(dotImage, dotBreadth, 37);
+				};
 
-				for(let character = 0; character < content.length; character++) {
-					if((content[character] == '#' || content[character] == '@') && content[character + 1].match(/[a-z]/i)) {
-						hashTag = 1;
+				currentWidth += 6;
 
-						instagram.context.fillStyle = "#003569";
-					}
-					else if(hashTag == 1 && !content[character].match(/[a-z]/i)) {
-						hashTag = 0;
+				instagram.context.font = "semibold 14px Segoe UI";
+				instagram.context.fillStyle = "#3897f0";
+				instagram.context.fillText("Follow", currentWidth, 42);
+				currentWidth += instagram.context.measureText(profileName).width;
 
-						instagram.context.fillStyle = "#14171a";
-					}
+				// date
+				let likes = $("#likes").val();
 
-					if(commentBreadth >= 511 + 48 + 240 || content[character] == '\n') {
-						commentBreadth = 511 + 48;
+				instagram.context.font = "semibold 14px Segoe UI";
+				instagram.context.fillStyle = "#262626";
+				instagram.context.fillText(likes + " likes", 512, 508);
 
-						commentHeight += 20;
+				let dateMonth = $("#date-month option:selected").text().toUpperCase() + " " + $("#date-day").val();
 
-						if(content[character] == '\n')
-							continue;
-					}
-
-					instagram.context.fillText(content[character], commentBreadth, commentHeight);
-
-					commentBreadth += instagram.context.measureText(content[character]).width;
-				}
-
-				commentHeight += 28;
-
-				commentBreadth = 511 + 48;
-
-				let dateMonth = $(this).find("#time-elapsed").val();
-
-				instagram.context.font = "14px Segoe UI";
+				instagram.context.font = "10px Segoe UI";
 				instagram.context.fillStyle = "#999";
-				instagram.context.fillText(dateMonth, commentBreadth, commentHeight);
+				instagram.context.fillText(dateMonth, 512, 530);
 
-				commentBreadth += instagram.context.measureText(dateMonth).width + 8;
+				//image
+				/*if(instagram.image != undefined) {
+					let customImage = new Image();
+					customImage.src = instagram.image;
+					customImage.onload = function() {
+						const oc = document.createElement('canvas');
+					  const octx = oc.getContext('2d');
+					  oc.width = this.width;
+					  oc.height = this.height;
 
-				instagram.context.font = "400 12px Segoe UI";
-				instagram.context.fillText("Reply", commentBreadth, commentHeight);
+					  const steps = (oc.height / 598)>>1;
+					  octx.filter = `blur(${steps}px)`;
+					  octx.drawImage(this, 0, 0);
 
-				commentHeight += 28;
+						instagram.context.drawImage(oc, (this.width - 492) / 2, (this.height - 598) / 2, 492, 598, 1, 1, 492, 598);
 
-			});
-		}
+						oc.remove();
+					};
+				}*/
+
+				let commentHeight = 95;
+
+				// comments
+				$("#comments").children("#comment").each(function () {
+					let commentBreadth = 511;
+
+					let cmtPicture = $(this).find("#profile-picture").val();
+
+					if(cmtPicture == 0) // @lafd
+						cmtPicture = "lsfd";
+					else if(cmtPicture == 1)
+						cmtPicture = "lsfdtalk";
+					else
+						cmtPicture = "dtls";
+
+					let pictureHeight = commentHeight;
+
+
+					let story = $(this).find("#story").val();
+
+					let image = new Image();
+					image.src = $(this).find("#profile-picture").val();
+					image.onload = function() {
+						const oc = document.createElement('canvas');
+					  const octx = oc.getContext('2d');
+					  oc.width = this.width;
+					  oc.height = this.height;
+
+					  const steps = (oc.width / 36)>>1;
+					  octx.filter = `blur(${steps}px)`;
+					  octx.drawImage(this, 0, 0);
+
+					  instagram.context.save();
+
+					  instagram.context.beginPath();
+					  instagram.context.arc(511 + 16, pictureHeight + 5, 28, 0, Math.PI * 2, true);
+						instagram.context.clip();
+
+						instagram.context.drawImage(oc, 511 - 2, pictureHeight - 2, 36, 36);
+
+					  instagram.context.restore();
+
+						oc.remove();
+
+						if(story == 1) {
+							let storyImage = new Image();
+							storyImage.src = "images/story.png";
+							storyImage.onload = function() {
+								instagram.context.drawImage(storyImage, 511 - 4, pictureHeight - 4);
+							};
+						}
+					};
+
+					commentBreadth += 48;
+
+					let profileName = $(this).find("#author").val();
+
+					instagram.context.font = "600 14px Segoe UI";
+					instagram.context.fillStyle = "#262626";
+					instagram.context.fillText(profileName, commentBreadth, commentHeight + 16);
+					commentBreadth += instagram.context.measureText(profileName).width;
+
+					let verified = $(this).find("#verified").val();
+
+					if(verified == 1) {
+						commentBreadth += 5;
+
+						let commentHeightVer = commentHeight;
+
+						let breadth = commentBreadth;
+
+						let verifiedImage = new Image();
+						verifiedImage.src = "images/verified-ig.png";
+						verifiedImage.onload = function() {
+							instagram.context.drawImage(verifiedImage, breadth, commentHeightVer + 6);
+						};
+
+						commentBreadth += 12;
+					}
+
+					commentBreadth += 4;
+
+					let hashTag = 0, content = $(this).find("#content").val();
+
+					instagram.context.font = "14px Segoe UI";
+					instagram.context.fillStyle = "#14171a";
+
+					commentHeight += 16;
+
+					for(let character = 0; character < content.length; character++) {
+						if((content[character] == '#' || content[character] == '@') && content[character + 1].match(/[a-z]/i)) {
+							hashTag = 1;
+
+							instagram.context.fillStyle = "#003569";
+						}
+						else if(hashTag == 1 && !content[character].match(/[a-z]/i)) {
+							hashTag = 0;
+
+							instagram.context.fillStyle = "#14171a";
+						}
+
+						if(commentBreadth >= 511 + 48 + 240 || content[character] == '\n') {
+							commentBreadth = 511 + 48;
+
+							commentHeight += 20;
+
+							if(content[character] == '\n')
+								continue;
+						}
+
+						instagram.context.fillText(content[character], commentBreadth, commentHeight);
+
+						commentBreadth += instagram.context.measureText(content[character]).width;
+					}
+
+					commentHeight += 28;
+
+					commentBreadth = 511 + 48;
+
+					let dateMonth = $(this).find("#time-elapsed").val();
+
+					instagram.context.font = "14px Segoe UI";
+					instagram.context.fillStyle = "#999";
+					instagram.context.fillText(dateMonth, commentBreadth, commentHeight);
+
+					commentBreadth += instagram.context.measureText(dateMonth).width + 8;
+
+					instagram.context.font = "400 12px Segoe UI";
+					instagram.context.fillText("Reply", commentBreadth, commentHeight);
+
+					commentHeight += 28;
+
+				});
+			}
+
+			resolve(1);
+		});
 	};
 
 	this.render = function() {
@@ -443,6 +447,9 @@ var instagram = new function() {
 						instagram.update();
 					}
 				}).show();
+
+				instagram.imageLeft = 1;
+				instagram.imageTop = 1;
 			
 				instagram.update();
 			};
@@ -451,7 +458,9 @@ var instagram = new function() {
 		});
 	});
 
-	$("#render-button").click(function() {
+	$("#render-button").click(async function() {
+		await instagram.update();
+
 		new Imgur($("#canvas")[0]).upload(function(data) {
 			window.location = data.link;
 		});
