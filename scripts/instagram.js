@@ -36,6 +36,16 @@ var instagram = new function() {
 	this.update = function() {
 		instagram.context.clearRect(0, 0, 1000, 1000);
 
+		instagram.context.fillStyle = "black";
+		instagram.context.fillRect(0, 0, 1000, 1000);
+
+		let img = new Image();
+		img.onload = function() {
+			instagram.context.drawImage(img, instagram.imageLeft, instagram.imageTop, $("#imager img").width(), $("#imager img").height());
+
+		};
+		img.src = $("#imager img")[0].src;
+
 		let instagramImage = new Image();
 		instagramImage.src = "images/instagram.png";
 		instagramImage.onload = function() {
@@ -139,7 +149,7 @@ var instagram = new function() {
 			instagram.context.fillText(dateMonth, 512, 530);
 
 			//image
-			if(instagram.image != undefined) {
+			/*if(instagram.image != undefined) {
 				let customImage = new Image();
 				customImage.src = instagram.image;
 				customImage.onload = function() {
@@ -156,7 +166,7 @@ var instagram = new function() {
 
 					oc.remove();
 				};
-			}
+			}*/
 
 			let commentHeight = 95;
 
@@ -385,8 +395,59 @@ var instagram = new function() {
 	$("#image").change(function() {
 		previewFile(function(source) {
 			instagram.image = source;
-		
-			instagram.update();
+
+			$("#canvas-imager img")[0].onload = function() {
+				$("#image-snap").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				});
+
+				$("#imager").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				}).draggable({
+					snap: ".snap",
+					cancel: ".ui-resizable-handle",
+
+					stop: function(event, ui) {
+						instagram.imageLeft = ui.position.left;
+						instagram.imageTop = ui.position.top;
+
+						instagram.update();
+					}
+				}).resizable({
+					aspectRatio: true,
+
+					handles: {
+						ne: ".top-right",
+						se: ".bottom-right",
+						sw: ".bottom-left",
+						nw: ".top-left"
+					},
+					resize: function(event, ui) {
+    				let height = ui.size.height;
+    				let width = ui.size.width;
+
+    				$("#image-snap-scale").css({
+							"width": width + "px",
+							"height": height + "px"
+						});
+
+						$("#canvas-imager img").css({
+							"width": width + "px",
+							"height": height + "px"
+						});
+					},
+
+					stop: function(event, ui) {
+						instagram.update();
+					}
+				}).show();
+			
+				instagram.update();
+			};
+
+			$("#canvas-imager img")[0].src = source;
 		});
 	});
 

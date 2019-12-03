@@ -59,7 +59,25 @@
 				<div class="box" id="canvas-box">
 					<div class="head">Live Preview: <span id="render-button">Upload to Imgur</span></div>
 					<div class="content" style="display: flex; border: none">
-						<canvas id="canvas" width="830" height="600" style="margin: auto; border: none"></canvas>
+						<div style="margin: auto; position: relative;">
+							<canvas id="canvas" width="830" height="600" style="margin: auto; border: none;"></canvas>
+
+							<div id="canvas-imager" style="position: absolute; width: 492px; height: 598px; background: black; left: 1px; top: 1px; overflow: hidden;">
+								<div class="snap" style="width: 492px; height: 598px; position: absolute;"></div>
+								<div class="snap" id="image-snap" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; border: 2px dashed rgba(255, 255, 255, .25); box-sizing: border-box;"></div>
+								<div class="snap" id="image-snap-scale" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; border: 2px dashed rgba(255, 255, 255, .25); box-sizing: border-box;"></div>
+
+								<div id="imager" style="position: absolute; display: none">
+										
+									<img style="position: absolute;">
+									<div class="top-left ui-resizable-nw ui-resizable-handle" style="width: 16px; height: 16px; background: url(images/resizer-se.png); top: -8px; left: -8px; position: absolute; cursor: se-resize; filter: drop-shadow(0 0 1px #FFF);"></div>
+									<div class="top-right ui-resizable-ne ui-resizable-handle" style="width: 16px; height: 16px; background: url(images/resizer-ne.png); top: -8px; right: -8px; position: absolute; cursor: ne-resize; filter: drop-shadow(0 0 1px #FFF);"></div>
+									<div class="bottom-left ui-resizable-sw ui-resizable-handle" style="width: 16px; height: 16px; background: url(images/resizer-ne.png); bottom: -8px; left: -8px; position: absolute; cursor: ne-resize; filter: drop-shadow(0 0 1px #FFF);"></div>
+									<div class="bottom-right ui-resizable-se ui-resizable-handle" style="width: 16px; height: 16px; background: url(images/resizer-se.png); bottom: -8px; right: -8px; position: absolute; cursor: se-resize; filter: drop-shadow(0 0 1px #FFF);"></div>
+
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -124,6 +142,7 @@
 		</div>
 
 		<script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery-ui-1.12.1.min.js"></script>
 		<script type="text/javascript" src="scripts/imgur.js"></script>
 		<script type="text/javascript" src="scripts/instagram.js"></script>
 	</body>
