@@ -398,71 +398,71 @@ var instagram = new function() {
 
 	$("#image").change(function() {
 		previewFile(function(source) {
-			new Imgur2(source).upload(function(data) {
-				instagram.image = data.link;
+			instagram.image = source;
 
-				$("#canvas-imager img")[0].onload = function() {
-					$("#image-snap").css({
-						"width": $("#canvas-imager img")[0].width + "px",
-						"height": $("#canvas-imager img")[0].height + "px"
-					});
+			
+
+			$("#canvas-imager img")[0].onload = function() {
+				$("#image-snap").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				});
 
 
-					$("#canvas-imager img").css({
-						"width": $("#canvas-imager img")[0].width + "px",
-						"height": $("#canvas-imager img")[0].height + "px"
-					});
+				$("#canvas-imager img").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				});
 
-					$("#imager").css({
-						"width": $("#canvas-imager img")[0].width + "px",
-						"height": $("#canvas-imager img")[0].height + "px"
-					}).draggable({
-						snap: ".snap",
-						cancel: ".ui-resizable-handle",
+				$("#imager").css({
+					"width": $("#canvas-imager img")[0].width + "px",
+					"height": $("#canvas-imager img")[0].height + "px"
+				}).draggable({
+					snap: ".snap",
+					cancel: ".ui-resizable-handle",
 
-						stop: function(event, ui) {
-							instagram.imageLeft = ui.position.left;
-							instagram.imageTop = ui.position.top;
+					stop: function(event, ui) {
+						instagram.imageLeft = ui.position.left;
+						instagram.imageTop = ui.position.top;
 
-							instagram.update();
-						}
-					}).resizable({
-						aspectRatio: true,
+						instagram.update();
+					}
+				}).resizable({
+					aspectRatio: true,
 
-						handles: {
-							ne: ".top-right",
-							se: ".bottom-right",
-							sw: ".bottom-left",
-							nw: ".top-left"
-						},
-						resize: function(event, ui) {
-	    				let height = ui.size.height;
-	    				let width = ui.size.width;
+					handles: {
+						ne: ".top-right",
+						se: ".bottom-right",
+						sw: ".bottom-left",
+						nw: ".top-left"
+					},
+					resize: function(event, ui) {
+    				let height = ui.size.height;
+    				let width = ui.size.width;
 
-	    				$("#image-snap-scale").css({
-								"width": width + "px",
-								"height": height + "px"
-							});
+    				$("#image-snap-scale").css({
+							"width": width + "px",
+							"height": height + "px"
+						});
 
-							$("#canvas-imager img").css({
-								"width": width + "px",
-								"height": height + "px"
-							});
-						},
+						$("#canvas-imager img").css({
+							"width": width + "px",
+							"height": height + "px"
+						});
+					},
 
-						stop: function(event, ui) {
-							instagram.update();
-						}
-					}).show();
+					stop: function(event, ui) {
+						instagram.update();
+					}
+				}).show();
 
-					instagram.imageLeft = 1;
-					instagram.imageTop = 1;
-				
-					instagram.update();
-				};
+				instagram.imageLeft = 1;
+				instagram.imageTop = 1;
+			
+				instagram.update();
+			};
 
-				$("#canvas-imager img")[0].src = source.src;
-			});
+			$("#canvas-imager img")[0].src = source;
 		});
 	});
 
