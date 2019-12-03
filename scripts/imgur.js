@@ -26,3 +26,26 @@ var Imgur = function(canvas) {
 		});
 	};
 };
+
+var Imgur2 = function(image) {
+	this.upload = function(finish) {
+		$.ajax({
+			url: "https://api.imgur.com/3/image",
+			type: "post",
+			headers: {
+				Authorization: "Client-ID bbaed846d9cd236"
+			},
+
+			data: {
+				image: image
+			},
+
+			dataType: "json",
+			success: function(response) {
+				if(response.success) {
+					finish(response.data);
+				}
+			}
+		});
+	};
+};
