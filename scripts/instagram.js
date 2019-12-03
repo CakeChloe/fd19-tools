@@ -70,11 +70,11 @@ var instagram = new function() {
 				  oc.width = this.width;
 				  oc.height = this.height;
 
-				  const steps = (oc.width / 32)>>1;
+				  const steps = (oc.width / 34)>>1;
 				  octx.filter = `blur(${steps}px)`;
 				  octx.drawImage(this, 0, 0);
 
-					instagram.context.drawImage(oc, 511, 21, 32, 32);
+					instagram.context.drawImage(oc, 510, 20, 34, 34);
 
 					oc.remove();
 
@@ -400,7 +400,7 @@ var instagram = new function() {
 		previewFile(function(source) {
 			instagram.image = source;
 
-			
+
 
 			$("#canvas-imager img")[0].onload = function() {
 				$("#image-snap").css({
