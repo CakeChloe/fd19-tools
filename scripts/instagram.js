@@ -57,6 +57,10 @@ var instagram = new function() {
 					picture = "lsfd";
 				else if(picture == 1)
 					picture = "lsfdtalk";
+				else if(picture == 3)
+					picture = "lspd";
+				else if(picture == 4)
+					picture = "lspdbadge";
 				else
 					picture = "dtls";
 
