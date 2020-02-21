@@ -35,10 +35,8 @@ var instagram = new function() {
 
 	this.update = function() {
 		return new Promise(resolve => {
-			instagram.context.clearRect(0, 0, 1000, 1000);
+			//instagram.context.clearRect(0, 0, 1000, 1000);
 
-			instagram.context.fillStyle = "black";
-			instagram.context.fillRect(0, 0, 1000, 1000);
 
 			let img = new Image();
 			img.onload = function() {
@@ -320,7 +318,7 @@ var instagram = new function() {
 	};
 
 	$("body").bind("input", function() {
-		instagram.update();
+		window.requestAnimationFrame(instagram.update());
 	});
 
 	$("#preset-content").change(function() {
@@ -334,7 +332,7 @@ var instagram = new function() {
 			$("#content").text("#Keyword; INC#0000; 0:00AM; 123 N Main Street; #Temple; incident information goes here...");
 
 		setTimeout(function() {
-			instagram.update();
+			window.requestAnimationFrame(instagram.update());
 		}, 200);
 	});
 
@@ -347,14 +345,14 @@ var instagram = new function() {
 'Author:' +
 '<ul>' +
 '<li>Presets:</li> ' +
-'<li onclick="$(\'#author[data-id=' + id + ']\').val(\'losangelesfiredepartment\'); instagram.update()">losangelesfiredepartment</li>' +
+'<li onclick="$(\'#author[data-id=' + id + ']\').val(\'losangelesfiredepartment\'); window.requestAnimationFrame(instagram.update())">losangelesfiredepartment</li>' +
 '</ul>' +
 '</fieldset>' +
 '<input id="author" type="text" placeholder="losangelesfiredepartment" value="lossantosfiredepartment" data-id="' + id + '">' +
 '<fieldset>Profile Picture:' +
 '<ul>' +
 '<li>Presets:</li> ' +
-'<li onclick="$(\'#profile-picture[data-id=' + id + ']\').val(\'https://i.imgur.com/adBpbwH.png\'); instagram.update()">LAFD talk</li>' +
+'<li onclick="$(\'#profile-picture[data-id=' + id + ']\').val(\'https://i.imgur.com/adBpbwH.png\'); window.requestAnimationFrame(instagram.update())">LAFD talk</li>' +
 '</ul>' +
 '</fieldset>' +
 '<input id="profile-picture" type="text" placeholder="Image link" value="https://i.imgur.com/adBpbwH.png" data-id="' + id + '">' +
@@ -362,10 +360,10 @@ var instagram = new function() {
 'Time Elapsed:' +
 '<ul>' +
 '<li>Presets:</li> ' +
-'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1s\'); instagram.update()">1s</li>, ' +
-'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1d\'); instagram.update()">1d</li>, ' +
-'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1m\'); instagram.update()">1m</li>, ' +
-'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1y\'); instagram.update()">1y</li>' +
+'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1s\'); window.requestAnimationFrame(instagram.update())">1s</li>, ' +
+'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1d\'); window.requestAnimationFrame(instagram.update())">1d</li>, ' +
+'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1m\'); window.requestAnimationFrame(instagram.update())">1m</li>, ' +
+'<li onclick="$(\'#time-elapsed[data-id=' + id + ']\').val(\'1y\'); window.requestAnimationFrame(instagram.update())">1y</li>' +
 '</ul>' +
 '</fieldset>' +
 '<input id="time-elapsed" type="text" placeholder="1d, 1w, 1m, 1y..." value="1d" data-id="' + id + '">' +
@@ -390,10 +388,10 @@ var instagram = new function() {
 		$element.find("#delete-comment").click(function() {
 			$element.remove();
 
-			instagram.update();
+			window.requestAnimationFrame(instagram.update());
 		});
 		
-		instagram.update();
+		window.requestAnimationFrame(instagram.update());
 	});
 
 	$("#image").change(function() {
@@ -425,7 +423,7 @@ var instagram = new function() {
 						instagram.imageLeft = ui.position.left;
 						instagram.imageTop = ui.position.top;
 
-						instagram.update();
+						window.requestAnimationFrame(instagram.update());
 					}
 				}).resizable({
 					aspectRatio: true,
@@ -452,14 +450,14 @@ var instagram = new function() {
 					},
 
 					stop: function(event, ui) {
-						instagram.update();
+						window.requestAnimationFrame(instagram.update());
 					}
 				}).show();
 
 				instagram.imageLeft = 1;
 				instagram.imageTop = 1;
 			
-				instagram.update();
+				window.requestAnimationFrame(instagram.update());
 			};
 
 			$("#canvas-imager img")[0].src = source;
@@ -467,7 +465,7 @@ var instagram = new function() {
 	});
 
 	$("#render-button").click(async function() {
-		await instagram.update();
+		await window.requestAnimationFrame(instagram.update());
 
 		new Imgur($("#canvas")[0]).upload(function(data) {
 			window.location = data.link;
@@ -475,4 +473,4 @@ var instagram = new function() {
 	});
 };
 
-instagram.update();
+window.requestAnimationFrame(instagram.update());
