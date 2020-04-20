@@ -36,11 +36,12 @@ var instagram = new function() {
 	this.update = function() {
 		return new Promise(resolve => {
 			//instagram.context.clearRect(0, 0, 1000, 1000);
+			
+			instagram.context.clearRect(1, 1, 492, 598);
 
 
 			let img = new Image();
 			img.onload = function() {
-				instagram.context.clearRect(1, 1, 492, 598);
 				
 				instagram.context.drawImage(img, instagram.imageLeft, instagram.imageTop, $("#imager img").width(), $("#imager img").height());
 
