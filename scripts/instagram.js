@@ -40,6 +40,8 @@ var instagram = new function() {
 
 			let img = new Image();
 			img.onload = function() {
+				instagram.contenxt.clearRect(1, 1, 492, 598);
+				
 				instagram.context.drawImage(img, instagram.imageLeft, instagram.imageTop, $("#imager img").width(), $("#imager img").height());
 
 			};
